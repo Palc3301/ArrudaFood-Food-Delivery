@@ -6,6 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import com.arrudafoodapi.arrudafood.ArrudafoodApplication;
 import com.arrudafoodapi.arrudafood.domain.model.Cozinha;
+import com.arrudafoodapi.arrudafood.repository.CozinhaRepository;
 
 public class BuscaCozinhaMain {
 
@@ -15,11 +16,12 @@ public class BuscaCozinhaMain {
 				.web(WebApplicationType.NONE)
 				.run(args);
 		
-		CadastroCozinha cadastroCozinha = applicationCOntext.getBean(CadastroCozinha.class);
+		CozinhaRepository cozinhaRepository = applicationCOntext.getBean(CozinhaRepository.class);
 		
-		Cozinha cozinha = cadastroCozinha.buscarCozinha(1L);
+		Cozinha cozinha = cozinhaRepository.porID(1L);
+
 		
-		System.out.println(cozinha.getNome());
+		System.out.println(cozinha.getName());
 
 	}
 
