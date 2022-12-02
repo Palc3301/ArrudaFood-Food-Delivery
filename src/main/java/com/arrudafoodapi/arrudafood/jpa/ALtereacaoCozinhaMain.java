@@ -10,19 +10,16 @@ import com.arrudafoodapi.arrudafood.repository.CozinhaRepository;
 
 public class ALtereacaoCozinhaMain {
 	public static void main(String[] args) {
-		
 
 		ConfigurableApplicationContext applicationCOntext = new SpringApplicationBuilder(ArrudafoodApplication.class)
-				.web(WebApplicationType.NONE)
-				.run(args);
-		
+				.web(WebApplicationType.NONE).run(args);
+
 		CozinhaRepository cozinhaRepository = applicationCOntext.getBean(CozinhaRepository.class);
-		
+
 		Cozinha cozinha = new Cozinha();
 		cozinha.setId(1L);
 		cozinha.setName("Brasileira");
-	
+
 		cozinhaRepository.adicionar(cozinha);
 	}
-
 }

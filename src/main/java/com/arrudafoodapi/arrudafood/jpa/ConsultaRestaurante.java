@@ -11,22 +11,21 @@ import com.arrudafoodapi.arrudafood.domain.model.Restaurante;
 import com.arrudafoodapi.arrudafood.repository.RestauranteRepository;
 
 public class ConsultaRestaurante {
-public static void main(String[] args) {
-		
+	public static void main(String[] args) {
+
 		ConfigurableApplicationContext applicationCOntext = new SpringApplicationBuilder(ArrudafoodApplication.class)
-				.web(WebApplicationType.NONE)
-				.run(args);
-		
+				.web(WebApplicationType.NONE).run(args);
+
 		RestauranteRepository restauranteRepository = applicationCOntext.getBean(RestauranteRepository.class);
-		
+
 		List<Restaurante> todosRestaurante = restauranteRepository.todos();
-		
-		for(Restaurante restaurante : todosRestaurante) {
+
+		for (Restaurante restaurante : todosRestaurante) {
 			System.out.printf("%s - %f - %s\n", restaurante.getName(), restaurante.getShippingFee(),
 					restaurante.getCozinha().getName());
-		
+
 		}
-		
+
 	}
 
 }

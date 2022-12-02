@@ -1,7 +1,5 @@
 package com.arrudafoodapi.arrudafood.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,13 +10,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@JsonRootName("cozinha")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Cozinha {
+public class Estado {
 	
 	@EqualsAndHashCode.Include
 	@Id
@@ -27,5 +24,4 @@ public class Cozinha {
 	
 	@Column(nullable = false)
 	private String name;
-	
 }
