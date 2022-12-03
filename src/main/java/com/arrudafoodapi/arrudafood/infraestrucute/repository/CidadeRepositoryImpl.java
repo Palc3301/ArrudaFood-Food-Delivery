@@ -2,6 +2,7 @@ package com.arrudafoodapi.arrudafood.infraestrucute.repository;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.arrudafoodapi.arrudafood.domain.model.Cidade;
@@ -19,13 +20,12 @@ public class CidadeRepositoryImpl implements CidadeRepository {
 
 	@Override
 	public List<Cidade> listar() {
-		return manager.createQuery("FROM cidade", Cidade.class).getResultList();
+		return manager.createQuery("from Cidade", Cidade.class).getResultList();
 	}
 
 	@Override
 	public Cidade buscar(Long id) {
 		return manager.find(Cidade.class, id);
-
 	}
 
 	@Transactional
@@ -35,8 +35,15 @@ public class CidadeRepositoryImpl implements CidadeRepository {
 	}
 
 	@Transactional
-	public void remover(Cidade cidade) {
-		cidade = buscar(cidade.getId());
+	@Override
+	public void remover(Long id) {
+		Cidade cidade = buscar(id);
+
+		if (cidade == null) {
+			throw new EmptyResultDataAccessException(1);
+		}
+
 		manager.remove(cidade);
 	}
+
 }

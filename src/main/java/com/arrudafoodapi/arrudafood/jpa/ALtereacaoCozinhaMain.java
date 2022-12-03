@@ -20,6 +20,6 @@ public class ALtereacaoCozinhaMain {
 		cozinha.setId(1L);
 		cozinha.setName("Brasileira");
 
-		cozinhaRepository.adicionar(cozinha);
+		cozinhaRepository.salvar(cozinha);
 	}
 }

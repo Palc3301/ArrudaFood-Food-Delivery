@@ -6,13 +6,14 @@ import com.arrudafoodapi.arrudafood.domain.model.Cozinha;
 
 public interface CozinhaRepository {
 	
-	List<Cozinha> todas();
+
+	List<Cozinha> listar();
 	
-	Cozinha porID(Long id);
+	Cozinha buscar(Long id);
 	
-	Cozinha adicionar(Cozinha cozinha);
+	Cozinha salvar(Cozinha cozinha);
 	
-	void remover(Cozinha cozinha);
+	void remover(Long id);
 	
 
 }
