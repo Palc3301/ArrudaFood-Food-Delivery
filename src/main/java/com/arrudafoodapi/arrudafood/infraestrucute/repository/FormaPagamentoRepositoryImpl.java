@@ -3,6 +3,7 @@ package com.arrudafoodapi.arrudafood.infraestrucute.repository;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.arrudafoodapi.arrudafood.domain.model.FormaPagamento;
 import com.arrudafoodapi.arrudafood.repository.FormaPagamentoRepository;
@@ -10,7 +11,7 @@ import com.arrudafoodapi.arrudafood.repository.FormaPagamentoRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
-@Component
+@Repository
 public class FormaPagamentoRepositoryImpl implements FormaPagamentoRepository {
 
 	@PersistenceContext

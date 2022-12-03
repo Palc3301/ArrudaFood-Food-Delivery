@@ -3,6 +3,7 @@ package com.arrudafoodapi.arrudafood.infraestrucute.repository;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.arrudafoodapi.arrudafood.domain.model.Restaurante;
 import com.arrudafoodapi.arrudafood.repository.RestauranteRepository;
@@ -11,7 +12,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
-@Component
+@Repository
 public class RestauranteRepositoryImpl implements RestauranteRepository {
 
 	@PersistenceContext

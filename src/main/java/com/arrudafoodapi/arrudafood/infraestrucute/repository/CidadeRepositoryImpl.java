@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.arrudafoodapi.arrudafood.domain.model.Cidade;
 import com.arrudafoodapi.arrudafood.repository.CidadeRepository;
@@ -12,7 +13,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
-@Component
+@Repository
 public class CidadeRepositoryImpl implements CidadeRepository {
 
 	@PersistenceContext

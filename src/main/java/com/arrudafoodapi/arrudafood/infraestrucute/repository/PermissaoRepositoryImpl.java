@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Remove;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.arrudafoodapi.arrudafood.domain.model.Permissao;
 import com.arrudafoodapi.arrudafood.repository.PermissaoRepository;
@@ -12,7 +13,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
-@Component
+@Repository
 public class PermissaoRepositoryImpl implements PermissaoRepository {
 
 	@PersistenceContext
