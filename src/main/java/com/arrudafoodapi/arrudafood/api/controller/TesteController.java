@@ -1,5 +1,8 @@
 package com.arrudafoodapi.arrudafood.api.controller;
 
+import static com.arrudafoodapi.arrudafood.infrastrucuture.repository.spec.RestauranteSpecs.comFreteGratis;
+import static com.arrudafoodapi.arrudafood.infrastrucuture.repository.spec.RestauranteSpecs.comNomeSemelhante;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +42,11 @@ public class TesteController {
 		return cozinhaRepository.existsByNome(nome);
 	}
 
+	@GetMapping("/cozinhas/primeira")
+	public Optional<Cozinha> cozinhaPrimeiro() {
+		return cozinhaRepository.buscarPrimeiro();
+	}
+
 	@GetMapping("/restaurantes/por-taxa-frete")
 	public List<Restaurante> restaurantesPorTaxaFrete(BigDecimal taxaInicial, BigDecimal taxaFinal) {
 		return restauranteRepository.queryByTaxaFreteBetween(taxaInicial, taxaFinal);
@@ -58,14 +66,26 @@ public class TesteController {
 	public List<Restaurante> restaurantesTop2PorNome(String nome) {
 		return restauranteRepository.findTop2ByNomeContaining(nome);
 	}
-	
+
 	@GetMapping("/restaurantes/por-nome-e-frete")
-	public List<Restaurante> restaurantesPorNomeFrete(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
+	public List<Restaurante> restaurantesPorNomeFrete(String nome, BigDecimal taxaFreteInicial,
+			BigDecimal taxaFreteFinal) {
 		return restauranteRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
 	}
 
 	@GetMapping("/restaurantes/count-por-cozinha")
 	public int restaurantesCountPorCozinha(Long cozinhaId) {
 		return restauranteRepository.countByCozinhaId(cozinhaId);
+	}
+
+	@GetMapping("/restaurantes/com-frete-gratis")
+	public List<Restaurante> restaurantesComFreteGratis(String nome) {
+
+		return restauranteRepository.findAll(comFreteGratis().and(comNomeSemelhante(nome)));
+	}
+
+	@GetMapping("/restaurantes/primeiro")
+	public Optional<Restaurante> restaurantePrimeiro() {
+		return restauranteRepository.buscarPrimeiro();
 	}
 }
