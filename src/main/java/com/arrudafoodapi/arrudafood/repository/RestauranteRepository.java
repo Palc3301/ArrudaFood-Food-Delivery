@@ -14,17 +14,24 @@ import com.arrudafoodapi.arrudafood.domain.model.Restaurante;
 @Repository
 public interface RestauranteRepository extends CustomJpaRepository<Restaurante, Long>, RestauranteRepositoryQueries, JpaSpecificationExecutor<Restaurante> {
 
+
+	//Se um restaurante não tiver nenhuma forma de pagamento associada a ele, esse restaurante não será retornado usando JOIN FETCH r.formasPagamento.
+	//Por isso tem q usar LEFT JOIN FETCH r.formasPagamento
+    //@Query("from Restaurante r join fetch r.cozinha join fetch r.formasPagamento")
+	@Query("FROM Restaurante r JOIN FETCH r.cozinha LEFT JOIN FETCH r.formasPagamento")
+	List<Restaurante> findAll();
+	
 	List<Restaurante> queryByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
-
-	@Query("FROM Restaurante WHERE nome LIKE %:nome% AND cozinha.id = :id")
+	
+    //@Query("from Restaurante where nome like %:nome% and cozinha.id = :id")
 	List<Restaurante> consultarPorNome(String nome, @Param("id") Long cozinha);
-
+	
 	//List<Restaurante> findByNomeContainingAndCozinhaId(String nome, Long cozinha);
-
+	
 	Optional<Restaurante> findFirstRestauranteByNomeContaining(String nome);
-
+	
 	List<Restaurante> findTop2ByNomeContaining(String nome);
-
+	
 	int countByCozinhaId(Long cozinha);
 	
 	
