@@ -18,11 +18,11 @@ public class ConsultaRestaurante {
 
 		RestauranteRepository restauranteRepository = applicationCOntext.getBean(RestauranteRepository.class);
 
-		List<Restaurante> todosRestaurante = restauranteRepository.listar();
+		List<Restaurante> todosRestaurante = restauranteRepository.findAll();
 
 		for (Restaurante restaurante : todosRestaurante) {
-			System.out.printf("%s - %f - %s\n", restaurante.getName(), restaurante.getShippingFee(),
-					restaurante.getCozinha().getName());
+			System.out.printf("%s - %f - %s\n", restaurante.getNome(), restaurante.getTaxaFrete(),
+					restaurante.getCozinha().getNome());
 
 		}
 

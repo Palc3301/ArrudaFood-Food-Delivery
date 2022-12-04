@@ -1,5 +1,7 @@
 package com.arrudafoodapi.arrudafood.jpa;
 
+import java.util.Optional;
+
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -18,10 +20,10 @@ public class BuscaCozinhaMain {
 		
 		CozinhaRepository cozinhaRepository = applicationCOntext.getBean(CozinhaRepository.class);
 		
-		Cozinha cozinha = cozinhaRepository.buscar(1L);
+		Optional<Cozinha> cozinha = cozinhaRepository.findById(1L);
 
 		
-		System.out.println(cozinha.getName());
+		System.out.println(cozinha.getClass());
 
 	}
 

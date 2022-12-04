@@ -1,6 +1,7 @@
 package com.arrudafoodapi.arrudafood.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,60 +26,63 @@ import com.arrudafoodapi.arrudafood.service.CadastroEstadoService;
 @RestController
 @RequestMapping(value = "/estados")
 public class EstadoController {
+
 	@Autowired
 	private EstadoRepository estadoRepository;
-
+	
 	@Autowired
 	private CadastroEstadoService cadastroEstado;
-
+	
 	@GetMapping
 	public List<Estado> listar() {
-		return estadoRepository.listar();
+		return estadoRepository.findAll();
 	}
-
+	
 	@GetMapping("/{estadoId}")
 	public ResponseEntity<Estado> buscar(@PathVariable Long estadoId) {
-		Estado estado = estadoRepository.buscar(estadoId);
-
-		if (estado != null) {
-			return ResponseEntity.ok(estado);
+		Optional<Estado> estado = estadoRepository.findById(estadoId);
+		
+		if (estado.isPresent()) {
+			return ResponseEntity.ok(estado.get());
 		}
-
+		
 		return ResponseEntity.notFound().build();
 	}
-
+	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Estado adicionar(@RequestBody Estado estado) {
 		return cadastroEstado.salvar(estado);
 	}
-
+	
 	@PutMapping("/{estadoId}")
-	public ResponseEntity<Estado> atualizar(@PathVariable Long estadoId, @RequestBody Estado estado) {
-		Estado estadoAtual = estadoRepository.buscar(estadoId);
-
+	public ResponseEntity<Estado> atualizar(@PathVariable Long estadoId,
+			@RequestBody Estado estado) {
+		Estado estadoAtual = estadoRepository.findById(estadoId).orElse(null);
+		
 		if (estadoAtual != null) {
 			BeanUtils.copyProperties(estado, estadoAtual, "id");
-
+			
 			estadoAtual = cadastroEstado.salvar(estadoAtual);
 			return ResponseEntity.ok(estadoAtual);
 		}
-
+		
 		return ResponseEntity.notFound().build();
 	}
-
+	
 	@DeleteMapping("/{estadoId}")
 	public ResponseEntity<?> remover(@PathVariable Long estadoId) {
 		try {
-			cadastroEstado.excluir(estadoId);
+			cadastroEstado.excluir(estadoId);	
 			return ResponseEntity.noContent().build();
-
+			
 		} catch (EntidadeNaoEncontradaException e) {
 			return ResponseEntity.notFound().build();
-
+			
 		} catch (EntidadeEmUsoException e) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+			return ResponseEntity.status(HttpStatus.CONFLICT)
+					.body(e.getMessage());
 		}
 	}
-
+	
 }

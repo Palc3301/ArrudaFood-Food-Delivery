@@ -22,6 +22,6 @@ public class FormaPagamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "descri_pagamento")
+	@Column(nullable = false)
 	private String descricao;
 }
