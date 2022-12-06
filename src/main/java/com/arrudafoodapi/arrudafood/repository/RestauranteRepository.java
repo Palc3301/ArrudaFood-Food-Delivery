@@ -18,7 +18,7 @@ public interface RestauranteRepository extends CustomJpaRepository<Restaurante, 
 	//Se um restaurante não tiver nenhuma forma de pagamento associada a ele, esse restaurante não será retornado usando JOIN FETCH r.formasPagamento.
 	//Por isso tem q usar LEFT JOIN FETCH r.formasPagamento
     //@Query("from Restaurante r join fetch r.cozinha join fetch r.formasPagamento")
-	@Query("FROM Restaurante r JOIN FETCH r.cozinha LEFT JOIN FETCH r.formasPagamento")
+	@Query("FROM Restaurante r JOIN FETCH r.cozinha")
 	List<Restaurante> findAll();
 	
 	List<Restaurante> queryByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
