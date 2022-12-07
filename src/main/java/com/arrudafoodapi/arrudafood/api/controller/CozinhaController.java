@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.arrudafoodapi.arrudafood.domain.model.Cozinha;
-import com.arrudafoodapi.arrudafood.exception.EntidadeEmUsoException;
-import com.arrudafoodapi.arrudafood.exception.EntidadeNaoEncontradaException;
 import com.arrudafoodapi.arrudafood.repository.CozinhaRepository;
 import com.arrudafoodapi.arrudafood.service.CadastroCozinhaService;
 
@@ -69,7 +67,7 @@ public class CozinhaController {
 		return ResponseEntity.notFound().build();
 	}
 
-	@DeleteMapping("/{cozinhaId}")
+/*	@DeleteMapping("/{cozinhaId}")
 	public ResponseEntity<?> remover(@PathVariable Long cozinhaId) {
 		try {
 			cadastroCozinha.excluir(cozinhaId);
@@ -81,6 +79,11 @@ public class CozinhaController {
 		} catch (EntidadeEmUsoException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
 		}
+	}*/
+	@DeleteMapping("/{cozinhaId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void remover(@PathVariable Long cozinhaId) {
+		cadastroCozinha.excluir(cozinhaId);	
 	}
 
 }
