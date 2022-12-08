@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.arrudafoodapi.arrudafood.domain.model.Cidade;
+import com.arrudafoodapi.arrudafood.exception.EntidadeNaoEncontradaException;
+import com.arrudafoodapi.arrudafood.exception.NegocioException;
 import com.arrudafoodapi.arrudafood.repository.CidadeRepository;
 import com.arrudafoodapi.arrudafood.service.CadastroCidadeService;
 
@@ -42,17 +44,25 @@ public class CidadeController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cidade adicionar(@RequestBody Cidade cidade) {
-		return cadastroCidade.salvar(cidade);
+		try {
+			return cadastroCidade.salvar(cidade);
+		} catch (EntidadeNaoEncontradaException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
-
+	
 	@PutMapping("/{cidadeId}")
-	public Cidade atualizar(@PathVariable Long cidadeId, @RequestBody Cidade cidade) {
+	public Cidade atualizar(@PathVariable Long cidadeId,
+			@RequestBody Cidade cidade) {
+		Cidade cidadeAtual = cadastroCidade.buscarOuFalhar(cidadeId);
 		
-			Cidade cidadeAtual = cidadeRepository.findById(cidadeId).orElse(null);
-
-			BeanUtils.copyProperties(cidade, cidadeAtual, "id");
-
-			return cadastroCidade.salvar(cidadeAtual); 
+		BeanUtils.copyProperties(cidade, cidadeAtual, "id");
+		
+		try {
+			return cadastroCidade.salvar(cidadeAtual);
+		} catch (EntidadeNaoEncontradaException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 
 	@DeleteMapping("/{cidadeId}")
