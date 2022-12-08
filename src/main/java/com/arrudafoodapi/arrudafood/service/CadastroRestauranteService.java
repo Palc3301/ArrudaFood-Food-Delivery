@@ -5,8 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.arrudafoodapi.arrudafood.domain.model.Cozinha;
 import com.arrudafoodapi.arrudafood.domain.model.Restaurante;
-import com.arrudafoodapi.arrudafood.exception.EntidadeNaoEncontradaException;
-import com.arrudafoodapi.arrudafood.repository.CozinhaRepository;
+import com.arrudafoodapi.arrudafood.exception.CidadeNaoEncontradaException;
 import com.arrudafoodapi.arrudafood.repository.RestauranteRepository;
 
 @Service
@@ -35,7 +34,7 @@ public class CadastroRestauranteService {
 	
 	public Restaurante buscarOuFalhar(Long restauranteId) {
 		return restauranteRepository.findById(restauranteId)
-				.orElseThrow(()-> new EntidadeNaoEncontradaException(
+				.orElseThrow(()-> new CidadeNaoEncontradaException(
 				String.format(MSG_RESTAURANTE_NÂO_ENCONTRADO, restauranteId)));
 	}
 

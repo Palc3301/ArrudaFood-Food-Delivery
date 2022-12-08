@@ -6,8 +6,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.arrudafoodapi.arrudafood.domain.model.Cozinha;
+import com.arrudafoodapi.arrudafood.exception.CozinhaNaoEncontradaException;
 import com.arrudafoodapi.arrudafood.exception.EntidadeEmUsoException;
-import com.arrudafoodapi.arrudafood.exception.EntidadeNaoEncontradaException;
 import com.arrudafoodapi.arrudafood.repository.CozinhaRepository;
 
 @Service
@@ -29,7 +29,7 @@ public class CadastroCozinhaService {
 			cozinhaRepository.deleteById(cozinhaId);
 
 		} catch (EmptyResultDataAccessException e) {
-			throw new EntidadeNaoEncontradaException(
+			throw new CozinhaNaoEncontradaException(
 					String.format(MSG_COZINHA_NÂO_ENCONTRADA, cozinhaId));
 			
 		} catch (DataIntegrityViolationException e) {
@@ -40,7 +40,7 @@ public class CadastroCozinhaService {
 
 	public Cozinha buscarOuFalhar(Long cozinhaId) {
 		return cozinhaRepository.findById(cozinhaId)
-				.orElseThrow(()-> new EntidadeNaoEncontradaException(
+				.orElseThrow(()-> new CozinhaNaoEncontradaException(
 						String.format(MSG_COZINHA_NÂO_ENCONTRADA, cozinhaId)));
 	}
 }
