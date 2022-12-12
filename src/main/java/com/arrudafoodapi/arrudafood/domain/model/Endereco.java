@@ -1,11 +1,8 @@
 package com.arrudafoodapi.arrudafood.domain.model;
 
-import org.hibernate.annotations.CollectionId;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
